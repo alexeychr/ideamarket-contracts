@@ -26,13 +26,20 @@ module.exports = {
 		}
 	},
 	solidity: {
-		version: '0.6.9',
-		settings: {
-			optimizer: {
-				enabled: true,
-				runs: 2000
+		compilers: [
+			{
+				version: '0.6.9',
+				settings: {
+					optimizer: {
+						enabled: true,
+						runs: 2000
+					},
+				},
 			},
-		},
+			{
+				version: '0.8.7'
+			}
+		]
 	},
 	paths: {
 		sources: './contracts',
