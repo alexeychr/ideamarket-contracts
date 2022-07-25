@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: Unlicensed
 pragma solidity ^0.8.7;
 
-/// @dev This operator smart contract performs a role of a receiver of the outcome
+/// @dev This adapter smart contract performs a role of a receiver of the outcome
 ///      of the cross-chain swap and immediately supplies it to the MultiAction
 ///      contract.
 /// @dev To make this happen:
@@ -9,14 +9,14 @@ pragma solidity ^0.8.7;
 ///      2. Construct the cross-chain swap using these guides:
 ///         https://docs.debridge.finance/deswap/api-quick-start-guide
 ///         https://deswap.debridge.finance/v1.0/
-///      3. Specify MultiActionOperator's address to the
+///      3. Specify MultiActionAdapter's address to the
 ///         `dstChainTokenOutRecipient` parameter (this is counter-intuitive)
-///      4. Encode a call to `MultiActionOperator.operateAddAndBuy()` method
+///      4. Encode a call to `MultiActionAdapter.operateAddAndBuy()` method
 ///         specifying its args as it was intended to be called by the user,
-///         and put MultiActionOperator's address along with this calldata
+///         and put MultiActionAdapter's address along with this calldata
 ///         (separated with a comma) to the `dstChainTxBundle` parameter,
 ///         as follows:
-///         0x00000000MultiActionOperator,0xEncodedCallToOperateAddAndBuyMethod
+///         0x00000000MultiActionAdapter,0xEncodedCallToOperateAddAndBuyMethod
 /// @dev After you execute the cross-chain transaction taken from the deSwap API,
 ///      deBridge gate will first execute the transaction to swap assets, putting
 ///      the outcome to this contract address, and then call the second transaction
@@ -24,7 +24,7 @@ pragma solidity ^0.8.7;
 ///      transaction fails, the whole transaction fails as well sending the
 ///      intermediary tokens to the fallback address.
 /// @notice https://docs.debridge.finance/deswap/transaction-bundling#deploying-the-operator-smart-contract
-contract MultiActionOperator {
+contract MultiActionAdapter {
     IERC20 public dai;
     IMultiAction public multiActionContract;
     IDebridgeGate public deBridgeGateContract;
